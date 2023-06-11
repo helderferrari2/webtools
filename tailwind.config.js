@@ -5,6 +5,7 @@ import forms from '@tailwindcss/forms';
 export default {
     darkMode: "class",
     content: [
+        'node_modules/preline/dist/*.js',
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
         './resources/views/**/*.blade.php',
@@ -18,5 +19,8 @@ export default {
         },
     },
     
-    plugins: [forms],
+    plugins: [
+        forms,
+        require('preline/plugin'),
+    ],
 };
