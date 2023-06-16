@@ -1,7 +1,7 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +14,13 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Index');
-});
+/**
+ * Index
+ */
+Route::get('/', [DashboardController::class, 'index'])->name('index');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-});
+/**
+ * Dashboard Layout
+ */
+Route::get('/{page}', [DashboardController::class, 'page'])->name('page');
+Route::post('/action', [DashboardController::class, 'action'])->name('action');

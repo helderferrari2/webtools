@@ -1,22 +1,35 @@
-<script setup>
-import DashboardLayout from '@/Layouts/DashboardLayout.vue';
-import { Head } from '@inertiajs/vue3';
-</script>
-
 <template>
-    <Head title="Dashboard" />
-    <DashboardLayout :title="'Gerador de Pessoas'" :subtitle="'Gera dados pessoais aleatórios. Ferramenta utilizada para testes de software.'">
-        <div class="flex flex-col bg-white border shadow-sm rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
-            <div class="p-4 md:p-7">
-                <h3 class="text-lg font-bold text-gray-800 dark:text-white">
-                Card title
-                </h3>
-                <p class="mt-2 text-gray-800 dark:text-gray-400">
-                With supporting text below as a natural lead-in to additional content.
-                </p>
-            </div>
-        </div>
+    <Head :title="props.domains.title"></Head>
+    <DashboardLayout :title="props.domains.title" :subtitle="props.domains.subtitle">
+        <Card>
+            <component :is="dynamicComponent" :domains="props.domains" :data="data" @submit="submit"></component>
+        </Card>
     </DashboardLayout>
 </template>
 
+<script setup>
 
+import { ref, defineAsyncComponent } from 'vue'
+import { Head } from '@inertiajs/vue3';
+import Card from '@/Components/Card.vue';
+import DashboardLayout from '@/Layouts/DashboardLayout.vue';
+
+const dynamicComponent = defineAsyncComponent(() => import('@/Pages/PasswordGenerator.vue'))
+
+const props = defineProps({
+    domains: {
+        type: Object,
+        required: true
+    },
+    data :{}
+})
+
+const data = ref(props.data)
+
+const submit = (formData) => {
+    axios.post(route('action'), formData)
+        .then(response => data.value = response.data)
+        .catch(error => console.log({ error }))
+};
+
+</script>
