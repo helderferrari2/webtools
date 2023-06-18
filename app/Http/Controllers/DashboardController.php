@@ -15,7 +15,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return Inertia::render('Index');
+        $pages = collect(config('pages'))->where('active', true)->transform(fn($item) => [
+            'slug' => $item['slug'],
+            'title' => $item['title'],
+            'subtitle' => $item['subtitle']
+        ]);
+
+        return Inertia::render('Index', [
+            'domains' => $pages
+        ]);
     }
 
     /**

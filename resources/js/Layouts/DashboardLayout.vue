@@ -3,14 +3,14 @@
         <Sidebar />
 
         <!-- Content -->
-        <div class="flex flex-col lg:ml-[256px]">
+        <div class="flex flex-col lg:ml-[256px] bg-gray-100 h-screen">
             <!-- Page Heading -->
             <Header />
 
             <!-- Page Content -->
             <main class="m-3">
                 <article>
-                  <Breadcrumb />
+                  <!-- <Breadcrumb /> -->
                   <Title :value="title"/>
                   <Subtitle :value="subtitle"/>
                 </article>

@@ -45,15 +45,13 @@
         </form>
 
         <!--Result-->
-        <div>
-            {{ data }}
-        </div>
+        <TextInputCopy :value="data"/>
     </div>
 </template>
 
 <script setup>
-import { defineEmits } from 'vue';
-import TextInput from '@/Components/TextInput.vue';
+import { ref, defineEmits } from 'vue';
+import TextInputCopy from '@/Components/TextInputCopy.vue';
 import { useForm } from '@inertiajs/vue3';
 import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -77,6 +75,8 @@ const form = useForm({
     symbols: false,
     length: 16,
 });
+
+const valor = ref('qualquer merda')
 
 const submit = () => {
     emit('submit', {
