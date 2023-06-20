@@ -1,8 +1,8 @@
 <template>
-    <Head :title="props.domains.title"></Head>
-    <DashboardLayout :title="props.domains.title" :subtitle="props.domains.subtitle">
+    <Head :title="props.domains.page.title"></Head>
+    <DashboardLayout :domains="props.domains">
         <Card>
-            <component :is="dynamicComponent" :domains="props.domains" :data="data" @submit="submit"></component>
+            <component :is="dynamicComponent" :domains="props.domains.page" :data="data" @submit="submit"></component>
         </Card>
     </DashboardLayout>
 </template>

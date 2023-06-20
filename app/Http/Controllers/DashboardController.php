@@ -15,11 +15,15 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $pages = collect(config('pages'))->where('active', true)->transform(fn($item) => [
-            'slug' => $item['slug'],
-            'title' => $item['title'],
-            'subtitle' => $item['subtitle']
-        ]);
+        $pages = collect(config('pages'))
+            ->where('active', true)
+            ->transform(fn($item) => [
+                'slug' => $item['slug'],
+                'title' => $item['title'],
+                'subtitle' => $item['subtitle'],
+                'category' => $item['category']
+            ])
+            ->groupBy('category');
 
         return Inertia::render('Index', [
             'domains' => $pages
@@ -40,9 +44,20 @@ class DashboardController extends Controller
             return redirect('/');
         }
 
+        $menu = $pages->where('active', true)
+            ->transform(fn($item) => [
+                'slug' => $item['slug'],
+                'title' => $item['title'],
+                'category' => $item['category']
+            ])
+            ->groupBy('category');
+
         $response = DynamicFunctionCaller::call($page['method']);
         return Inertia::render('Dashboard', [
-            'domains' => $page,
+            'domains' => [
+                'menu' => $menu,
+                'page' => $page
+            ],
             'data' => $response
         ]);
     }

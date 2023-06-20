@@ -1,6 +1,6 @@
 <template>
     <div class="dark:bg-slate-900">
-        <Sidebar />
+        <Sidebar :items="domains.menu"/>
 
         <!-- Content -->
         <div class="flex flex-col lg:ml-[256px] bg-gray-100 h-screen">
@@ -11,8 +11,8 @@
             <main class="m-3">
                 <article>
                   <!-- <Breadcrumb /> -->
-                  <Title :value="title"/>
-                  <Subtitle :value="subtitle"/>
+                  <Title :value="domains.page.title"/>
+                  <Subtitle :value="domains.page.subtitle"/>
                 </article>
                 <section class="my-3">
                   <slot />
@@ -31,13 +31,9 @@ import Subtitle from "@/Components/Layout/Subtitle.vue";
 import Footer from "@/Components/Layout/Footer.vue";
 
 defineProps({
-  title: {
-      type: String,
-      default: '',
-  },
-  subtitle: {
-      type: String,
-      default: '',
-  }
+    domains: {
+        type: Object,
+        required: true
+    }
 })
 </script>
