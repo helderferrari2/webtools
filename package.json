@@ -22,6 +22,6 @@
         "@heroicons/vue": "^2.0.18",
         "@vueuse/core": "^10.2.0",
         "preline": "^1.9.0",
-        "vue3-toastify": "^0.1.11"
+        "v-mask": "^2.3.0"
     }
 }

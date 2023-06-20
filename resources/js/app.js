@@ -7,18 +7,11 @@ import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy/dist/vue.m';
 
+//Import global components
 import {Link} from '@inertiajs/vue3';
+import VueMask from 'v-mask'
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
-
-import Vue3Toasity, { toast } from 'vue3-toastify';
-import 'vue3-toastify/dist/index.css';
-
-const toastConfig = {
-    autoClose: 1500, 
-    position: toast.POSITION.BOTTOM_RIGHT,
-    pauseOnHover: false
-}
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
@@ -28,7 +21,7 @@ createInertiaApp({
             .use(plugin)
             .use(ZiggyVue, Ziggy)
             .component("Link", Link)
-            .use(Vue3Toasity, toastConfig)
+            .use("VueMask", VueMask)
             .mount(el);
     },
     progress: {

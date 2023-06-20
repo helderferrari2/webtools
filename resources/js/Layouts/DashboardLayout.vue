@@ -1,23 +1,22 @@
 <template>
     <div class="dark:bg-slate-900">
-        <Sidebar :items="domains.menu"/>
+        <Sidebar :items="domains.menu" />
 
         <!-- Content -->
-        <div class="flex flex-col lg:ml-[256px] bg-gray-100 h-screen">
+        <div class="flex flex-col lg:ml-[256px] min-h-screen bg-gray-100 dark:bg-gray-700">
             <!-- Page Heading -->
             <Header />
 
             <!-- Page Content -->
-            <main class="m-3">
-                <article>
-                  <!-- <Breadcrumb /> -->
-                  <Title :value="domains.page.title"/>
-                  <Subtitle :value="domains.page.subtitle"/>
-                </article>
+            <main class="m-3 flex-1">
+                <Breadcrumb />
                 <section class="my-3">
-                  <slot />
+                    <slot />
                 </section>
             </main>
+
+            <!-- Page Footer -->
+            <Footer />
         </div>
     </div>
 </template>
@@ -26,8 +25,6 @@
 import Sidebar from "@/Components/Layout/Sidebar.vue";
 import Breadcrumb from "@/Components/Layout/Breadcrumb.vue";
 import Header from "@/Components/Layout/Header.vue";
-import Title from "@/Components/Layout/Title.vue";
-import Subtitle from "@/Components/Layout/Subtitle.vue";
 import Footer from "@/Components/Layout/Footer.vue";
 
 defineProps({

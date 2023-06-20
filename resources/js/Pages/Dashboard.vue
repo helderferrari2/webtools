@@ -1,7 +1,7 @@
 <template>
     <Head :title="props.domains.page.title"></Head>
     <DashboardLayout :domains="props.domains">
-        <Card>
+        <Card :domains="props.domains.page">
             <component :is="dynamicComponent" :domains="props.domains.page" :data="data" @submit="submit"></component>
         </Card>
     </DashboardLayout>
@@ -21,7 +21,7 @@ const props = defineProps({
         type: Object,
         required: true
     },
-    data :{}
+    data: {}
 })
 
 const data = ref(props.data)

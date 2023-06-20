@@ -1,59 +1,73 @@
 <template>
     <div>
+        <Clipboard :value="data" />
+        <Divider />
+        
         <!-- form -->
+        <p class="mb-3">Customize sua senha com os filtros abaixo:</p>
         <form @submit.prevent="submit">
-            <div class="flex my-3 space-x-3">
+
+            <div class="my-3">
+                <InputLabel for="length" value="Tamanho da Senha" />
+                <TextInput
+                    id="length"
+                    type="text"
+                    class="mt-1 block"
+                    v-model="form.length"
+                    v-mask="'###'"
+                />
+                <InputError class="mt-2" :message="form.errors.length" />
+            </div>
+
+            <div class="flex flex-col space-y-2">
+                <InputLabel for="checkboxes" value="Tipos de caracteres" />
                 <div class="block">
                     <label class="flex flex-column items-center">
                         <Checkbox name="remember" v-model:checked="form.numbers" />
-                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Números</span>
+                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Incluir Números (0-9)</span>
                     </label>
                 </div>
                 <div class="block">
                     <label class="flex flex-column items-center">
                         <Checkbox name="remember" v-model:checked="form.lowercase" />
-                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Minúsculas</span>
+                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Incluir Minúsculas (a-z)</span>
                     </label>
                 </div>
                 <div class="block">
                     <label class="flex flex-column items-center">
                         <Checkbox name="remember" v-model:checked="form.uppercase" />
-                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Maiúsculas</span>
+                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Incluir Maiúsculas (A-Z)</span>
                     </label>
                 </div>
                 <div class="block">
                     <label class="flex flex-column items-center">
                         <Checkbox name="remember" v-model:checked="form.symbols" />
-                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Símbolos</span>
+                        <span class="ml-2 text-sm text-gray-600 dark:text-gray-400">Incluir Símbolos (!@#$%&*...)</span>
                     </label>
                 </div>
             </div>
 
-            <div class="flex my-3 space-x-3">
-                <div class="block">
-                    <label class="flex flex-column items-center">
-                        <input type="text" v-model="form.length" />
-                    </label>
-                </div>
-            </div>
-
-            <div class="flex my-3 space-x-3">
+            <div class="flex my-3 space-x-3 justify-center">
                 <PrimaryButton :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
-                    Gerar
+                    Gerar Senha
                 </PrimaryButton>
             </div>
         </form>
 
-        <!--Result-->
-        <TextInputCopy :value="data"/>
+        <Divider />
+
     </div>
 </template>
 
 <script setup>
 import { defineEmits } from 'vue';
-import TextInputCopy from '@/Components/TextInputCopy.vue';
 import { useForm } from '@inertiajs/vue3';
+import Divider from '@/Components/Divider.vue';
+import Clipboard from '@/Components/Clipboard.vue'
 import Checkbox from '@/Components/Checkbox.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 const emit = defineEmits(['submit']);
@@ -82,5 +96,25 @@ const submit = () => {
         params: form,
     })
 }
+
+// const validatePassword = () => {
+//       const strongRegex = new RegExp(
+//         '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+//       );
+//       const mediumRegex = new RegExp(
+//         '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{6,})'
+//       );
+
+//       if (strongRegex.test(props.data)) {
+//         return 'Forte';
+//       } else if (mediumRegex.test(props.data)) {
+//         return 'Médio';
+//       } else {
+//         return 'Fraco';
+//       }
+//     };
+
+// const passwordStrength = computed(() =>  validatePassword());
+
 </script>
 

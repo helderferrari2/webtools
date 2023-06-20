@@ -45,13 +45,13 @@
         </form>
 
         <!--Result-->
-        <TextInputCopy :value="data"/>
+        <!-- <TextInputCopy :value="data"/> -->
     </div>
 </template>
 
 <script setup>
 import { defineEmits } from 'vue';
-import TextInputCopy from '@/Components/TextInputCopy.vue';
+// import TextInputCopy from '@/Components/TextInputCopy.vue';
 import { useForm } from '@inertiajs/vue3';
 import Checkbox from '@/Components/Checkbox.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
